@@ -31,9 +31,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withStyle
 
 @Composable
-fun Login(navController: NavController) {
+fun Signup(navController: NavController) {
     var text by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var Confirmpassword by remember { mutableStateOf("") }
 
     val DarkBlue = Color(0xFF0D47A1)
     val DarkPink = Color(0xFFffB5C0)
@@ -48,7 +49,7 @@ fun Login(navController: NavController) {
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.woman),
+            painter = painterResource(id = R.drawable.welcome),
             contentDescription = "welcome image",
             modifier = Modifier.size(200.dp)
         )
@@ -62,7 +63,7 @@ fun Login(navController: NavController) {
                 )
         ) {
             Text(
-                text = "Log In",
+                text = "Sign Up",
                 color = Color.Gray,
                 fontWeight = FontWeight.Bold,
                 fontSize = 25.sp,
@@ -95,19 +96,15 @@ fun Login(navController: NavController) {
                     .padding(horizontal = 20.dp, vertical = 8.dp)
             )
 
-            Text(
-                text = "Forgot Password?",
-                color = Color(0xFF0D47A1),
-                fontWeight = FontWeight.Light,
-                fontSize = 16.sp,
+            OutlinedTextField(
+                value = Confirmpassword,
+                onValueChange = { Confirmpassword = it },
+                label = { Text("Confirm Password") },
+                placeholder = { Text("Confirm Password") },
+                visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-                    .clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://"))
-                        context.startActivity(intent)
-                    },
-                textAlign = TextAlign.Start
+                    .padding(horizontal = 20.dp, vertical = 8.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -125,15 +122,9 @@ fun Login(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             val annotatedText = buildAnnotatedString {
-                append("Don't have an account? ")
-                pushStringAnnotation(tag = "signup", annotation = "signup")
-                withStyle(
-                    style = SpanStyle(
-                        color = Color(0xFFFFB5C0),
-                        fontWeight = FontWeight.Bold,
-                        textDecoration = TextDecoration.Underline
-                    )
-                ) {
+                append("Already have an account? ")
+                pushStringAnnotation(tag = "Login", annotation = "login")
+                withStyle(style = SpanStyle(color = Color(0xFF0D47A1), fontWeight = FontWeight.Bold, textDecoration = TextDecoration.Underline)) {
                     append("Sign Up")
                 }
                 pop()
@@ -149,13 +140,13 @@ fun Login(navController: NavController) {
                     color = Color.Gray
                 ),
                 onClick = { offset ->
-                    annotatedText.getStringAnnotations(tag = "signup", start = offset, end = offset)
-                        .firstOrNull()?.let {
-                            navController.navigate(it.item)
+                    annotatedText.getStringAnnotations(tag = "SignUp", start = offset, end = offset)
+                        .firstOrNull()?.let { annotation ->
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(annotation.item))
+                            context.startActivity(intent)
                         }
                 }
             )
-
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -186,7 +177,7 @@ fun Login(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun LoginPreview() {
+fun SignupPreview() {
     val navController = rememberNavController()
-    Login(navController)
+    Signup(navController)
 }
