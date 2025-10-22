@@ -7,7 +7,8 @@ import androidx.navigation.compose.composable
 
 @Composable
 fun Navigation(navController: NavHostController) {
-    NavHost(navController, startDestination = "login") {
+    NavHost(navController, startDestination = "home") {
+        composable("home") { Home(navController) }
         composable("login") { Login(navController) }
         composable("signup") { Signup(navController) }
         composable("welcome") { WelcomePage(navController) }

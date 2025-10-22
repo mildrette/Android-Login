@@ -36,7 +36,8 @@ fun Login(navController: NavController) {
     var password by remember { mutableStateOf("") }
 
     val DarkBlue = Color(0xFF0D47A1)
-    val DarkPink = Color(0xFFffB5C0)
+    val DarkPink = Color(0xFFFFB5C0)
+    val DarkBluey = Color(0xFF023047)
 
     val context = LocalContext.current
 

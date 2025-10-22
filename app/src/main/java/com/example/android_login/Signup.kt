@@ -59,7 +59,7 @@ fun Signup(navController: NavController) {
                 .weight(1f)
                 .background(
                     color = Color.White,
-                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
                 )
         ) {
             Text(
